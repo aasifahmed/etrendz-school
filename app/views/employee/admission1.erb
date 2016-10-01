@@ -1,6 +1,6 @@
 <%#= stylesheet_link_tag("employee/admission1.css") %>
 <div id="content-header">
-  <%= image_tag("HR/show_hr.png") %>
+  <%#= image_tag("HR/show_hr.png") %>
   <h1>
     <%= t('employee_admission') %>
   </h1>
@@ -8,10 +8,10 @@
     <%= t('step_1') %>
   </h3>
   <div id="app-back-button">
-    <%= back_button %>
+    <%#= back_button %>
   </div>
-</div>
-<div id="page-yield">
+</div><hr>
+<div id="page-yield" style="padding-left: 20px;">
   <% unless flash[:notice].nil? %>
     <p class="flash-msg">
       <%= flash[:notice] %>
@@ -35,10 +35,14 @@
       </span>
       <hr class="sub-heading"/>
       <div class="label-field-pair">
+    <div class="row">
+      <div class="col-md-3">
         <label for="employee_id">
           <%= t('employee_number') %>
           <span class="necessary-field">*</span>
         </label>
+      </div>
+      <div class="col-md-3">
         <div class="text-input-bg">
           <% unless @config.config_value == '0' or @last_admitted_employee.nil? %>
             <%= a.text_field :employee_number, :value=> @last_admitted_employee.employee_number.next %>
@@ -47,156 +51,249 @@
           <% end %>
         </div>
       </div>
+    </div>
+      </div>
       <hr class="label-underline"/>
       <div class="label-field-pair">
+    <div class="row">
+      <div class="col-md-3">
         <label for="employee_joining_date">
           <%= t('joining_date') %>
         </label>
+      </div>
+      <div class="col-md-3">
         <div class="text-input-bg">
           <%= date_select 'employee[joining_date]', I18n.l(Date.today,:format=>:default),:max_year_allowed => 100  %>
         </div>
       </div>
+    </div>
+      </div>
       <hr class="label-underline"/>
       <div class="label-field-pair">
+    <div class="row">
+      <div class="col-md-3">
         <label for="employee_name">
           <%= t('first_name') %>
           <span class="necessary-field">*</span>
         </label>
+      </div>
+      <div class="col-md-3">
         <div class="text-input-bg">
           <%= a.text_field :first_name %>
         </div>
       </div>
+    </div>
+      </div>
       <hr class="label-underline"/>
       <div class="label-field-pair">
+    <div class="row">
+      <div class="col-md-3">
         <label for="employee_name">
           <%= t('middle_name') %>
         </label>
+      </div>
+      <div class="col-md-3">
         <div class="text-input-bg">
           <%= a.text_field :middle_name %>
         </div>
       </div>
+    </div>
+      </div>
       <hr class="label-underline"/>
       <div class="label-field-pair">
+    <div class="row">
+      <div class="col-md-3">
         <label for="employee_name">
           <%= t('last_name') %>
         </label>
+      </div>
+      <div class="col-md-3">
         <div class="text-input-bg">
           <%= a.text_field :last_name %>
         </div>
       </div>
+    </div>
+      </div>
       <hr class="label-underline"/>
       <div class="label-field-pair">
+    <div class="row">
+      <div class="col-md-3">
         <label>
           <%= t('email') %>
         </label>
+      </div>
+      <div class="col-md-3">
         <div class="text-input-bg">
           <%= a.text_field :email %>
         </div>
+      </div>
+    </div>
         <div class="extender"></div>
       </div>
       <hr class="label-underline"/>
       <div class="label_field_pair">
+    <div class="row">
+      <div class="col-md-3">
         <label class="label_for_employee_gender" for="master_student_gender">
           <%= t('gender') %>
         </label>
+      </div>
         <div class="employee_gender_value">
+        <div class="col-md-1">
+          <%= a.radio_button  "gender", "m", :checked => "checked" %>
           <label class="label_for_gender" for="master_student_gender_true">
             <%= t('male') %>
           </label>
-          <%= a.radio_button  "gender", "m", :checked => "checked" %>
+        </div>
+        <div class="col-md-1">
+          <%= a.radio_button  "gender", "f" %>
           <label class="label_for_gender" for="master_student_gender_false">
             <%= t('female') %>
           </label>
-          <%= a.radio_button  "gender", "f" %>
+          </div>
         </div>
+    </div>
       </div>
       <hr class="label-underline"/>
       <div class="label-field-pair">
+    <div class="row">
+      <div class="col-md-3">
         <label for="dob">
           <%= t('date_of_birth') %>
           <span class="necessary-field">*</span>
         </label>
+      </div>
+      <div class="col-md-3">
         <div class="text-input-bg">
           <%= date_select 'employee[date_of_birth]', I18n.l(Date.today-10.years,:format=>:default), :start_year => Date.today.year - 50, :popup=>"force"  %>
         </div>
       </div>
+    </div>
+      </div>
       <hr class="label-underline"/>
       <div class="label-field-pair">
+    <div class="row">
+      <div class="col-md-3">
         <label for="employee_department">
           <%= t('department') %>
           <span class="necessary-field">*</span>
         </label>
+      </div>
+      <div class="col-md-3">
         <div class="text-input-bg">
           <%= select :employee, :employee_department_id, @departments.map {|s| [s.name, s.id]},:prompt => "#{t('select')}" %>
         </div>
       </div>
+    </div>
+      </div>
       <hr class="label-underline"/>
       <div class="label-field-pair">
+    <div class="row">
+      <div class="col-md-3">
         <label for="employee_category">
           <%= t('category') %>
           <span class="necessary-field">*</span>
         </label>
+      </div>
+      <div class="col-md-3">
         <div class="text-input-bg">
           <%= select :employee, :employee_category_id, @categories.map { |s| [s.name, s.id] }, {:prompt => "#{t('select')}"}, {onChange: "onChangeRequest(this,  '#{url_for(action: :update_positions, category_id: 'value')}')"}  %>
         </div>
       </div>
+    </div>
+      </div>
       <hr class="label-underline"/>
       <div class="label-field-pair">
+    <div class="row">
+      <div class="col-md-3">
         <label for="employee_position">
           <%= t('position') %>
           <span class="necessary-field">*</span>
         </label>
+      </div>
+      <div class="col-md-3">
         <div class="text-input-bg">
           <div id="positions1">
             <%= render :partial => 'positions', :object => @positions %>
           </div>
         </div>
       </div>
+    </div>
+      </div>
       <hr class="label-underline"/>
       <div class="label-field-pair">
+    <div class="row">
+      <div class="col-md-3">
         <label for="employee_grade">
           <%= t('grade') %>
         </label>
+      </div>
+      <div class="col-md-3">
         <div class="text-input-bg">
           <%= select :employee, :employee_grade_id, @grades.map {|s| [s.name, s.id]},:prompt => "#{t('select')}" %>
         </div>
       </div>
+    </div>
+      </div>
       <hr class="label-underline"/>
       <div class="label-field-pair">
+    <div class="row">
+      <div class="col-md-3">
         <label for="employee_job_title">
           <%= t('job_title') %>
         </label>
+      </div>
+      <div class="col-md-3">
         <div class="text-input-bg">
           <%= a.text_field :job_title %>
         </div>
       </div>
+    </div>
+      </div>
       <hr class="label-underline"/>
       <div class="label-field-pair">
+    <div class="row">
+      <div class="col-md-3">
         <label for="employee_qualification">
           <%= t('qualification') %>
         </label>
+      </div>
+      <div class="col-md-3">
         <div class="text-input-bg">
           <%= a.text_field :qualification %>
         </div>
       </div>
+    </div>
+      </div>
       <hr class="label-underline"/>
       <div class="label-field-pair-text-area">
+    <div class="row">
+      <div class="col-md-3">
         <label for="employee_experience">
           <%= t('exp_info') %>
         </label>
+      </div>
+      <div class="col-md-3">
         <div class="textarea-input-bg">
           <%= a.text_area :experience_detail,:cols => 27, :rows => 5,:class => 'admission1-textarea' %>
         </div>
       </div>
+    </div>
+      </div>
       <hr class="label-underline"/>
       <div class="label-field-pair">
+    <div class="row">
+      <div class="col-md-3">
         <label for="employee_total-experience">
           <%= t('total_exp') %>
         </label>
+      </div>
         <div class="text-input-bg">
           <%= select :employee, :experience_year, (0..20),{:prompt=>"#{t('year')}"} %>
           <%= select :employee, :experience_month, (0..11),{:prompt=>"#{t('month')}"} %>
         </div>
+      </div>
+      </div>
       </div>
       <hr class="label-underline"/>
       <br/>

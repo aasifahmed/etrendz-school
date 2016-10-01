@@ -1,43 +1,59 @@
-<ul id="grade-list">
+<table class="table table-striped">
   <% unless @grades.empty? %>
-    <li class="listheading">
+  <th>
       <div class="grade-name">
         <%= "#{t('active_grade')}" %>
       </div>
-    </li>
+  </th>
+  <th></th>
+  <th></th>
     <% @grades.each do |g| %>
-      <li class="list<%= cycle('odd', 'even') %>">
+      <!-- <li class="list<%= cycle('odd', 'even') %>"> -->
+      <tr>
+      <td>
         <div class="grade-name">
           <%= g.name %>
           (<%=g.priority %>)
         </div>
+      </td>
+      <td>
         <div class="grade-edit">
           <%= link_to "#{t('edit_text')}", :action => "edit_grade", :id=>g.id %>
         </div>
+      </td>
+      <td>
         <div class="grade-edit">
           <%= link_to "#{t('delete_text')}", {:action => "delete_grade", :id=>g.id}, :confirm => "#{t('delete_confirm_msg')}", method: :DELETE %>
         </div>
-      </li>
+      </td>
+      </tr>
     <% end %>
     <% unless @inactive_grades.empty? %>
-      <li class="listheading">
+      <th>
         <div class="grade-name">
           <%= "#{t('inactive_grade')}" %>
         </div>
-      </li>
+      </th>
       <% @inactive_grades.each do |c| %>
-        <li class="list<%= cycle('odd', 'even') %>">
+        <!-- <li class="list<%= cycle('odd', 'even') %>"> -->
+        <tr>
+        <td>
           <div class="grade-name">
             <%= c.name %>
             (<%= c.priority %>)
           </div>
+        </td>
+        <td>
           <div class="grade-edit">
             <%= link_to "#{t('edit_text')}", {:action => "edit_grade", :id=>c.id} %>
           </div>
+        </td>
+        <td>
           <div class="grade-edit">
             <%= link_to "#{t('delete_text')}", {:action => "delete_grade", :id=>c.id},:confirm=>"#{t('delete_confirm_msg')}", method: :DELETE %>
           </div>
-        </li>
+        </td>
+        </tr>
       <% end %>
     <% end %>
   <% else %>
@@ -45,4 +61,4 @@
       <%= t('no_employee_grades_record_found') %>
     </p>
   <% end %>
-</ul>
+</table>

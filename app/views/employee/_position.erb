@@ -1,43 +1,59 @@
-<ul id="position-list">
+<table class="table table-striped">
   <% unless @positions.empty? %>
-    <li class="listheading">
+    <th>
       <div class="position-name">
         <%= "#{t('active_position')}" %>
       </div>
-    </li>
+    </th>
+    <th></th>
+    <th></th>
     <% @positions.each do |p| %>
-      <li class="list<%= cycle('odd', 'even') %>">
+      <!-- <li class="list<%= cycle('odd', 'even') %>"> -->
+      <tr>
+      <td>
         <div class="position-name">
           <%= p.name %>
           (<%= p.employee_category.prefix unless p.employee_category_id.nil? %>)
         </div>
+        </td>
+        <td>
         <div class="position-edit">
           <%= link_to "#{t('edit_text')}", :action => "edit_position", :id=>p.id %>
         </div>
+        </td>
+        <td>
         <div class="position-edit">
           <%= link_to "#{t('delete_text')}", {:action => "delete_position", :id=>p.id}, :confirm =>"#{t('delete_confirm_msg')}", method: :DELETE %>
         </div>
-      </li>
+        </td>
+        </tr>
     <% end %>
     <% unless @inactive_positions.empty? %>
-      <li class="listheading">
+    <th>
         <div class="position-name">
           <%= "#{t('inactive_position')}" %>
         </div>
-      </li>
+      </th>
       <% @inactive_positions.each do |c| %>
-        <li class="list<%= cycle('odd', 'even') %>">
+        <!-- <li class="list<%= cycle('odd', 'even') %>"> -->
+        <tr>
+        <td>
           <div class="position-name">
             <%= c.name %>
             (<%= c.employee_category.prefix unless c.employee_category_id.nil? %>)
           </div>
+        </td>
+        <td>
           <div class="position-edit">
             <%= link_to "#{t('edit_text')}", {:action => "edit_position", :id=>c.id} %>
           </div>
+        </td>
+        <td>
           <div class="position-edit">
             <%= link_to "#{t('delete_text')}", {:action => "delete_position", :id=>c.id},:confirm=>"#{t('delete_confirm_msg')}", method: :DELETE %>
           </div>
-        </li>
+        </td>
+        </tr>
       <% end %>
     <% end %>
   <% else %>
@@ -45,4 +61,4 @@
       <%= "#{t('no_position_record_found')}" %>
     </p>
   <% end %>
-</ul>
+</table>

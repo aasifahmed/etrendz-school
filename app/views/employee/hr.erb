@@ -1,5 +1,5 @@
 <div id="content-header">
-  <%= image_tag("  HR/show_hr.png") %>
+  <%#= image_tag("  HR/show_hr.png") %>
   <h1>
     <%= "#{t('hr_management')}" %>
   </h1>
@@ -7,10 +7,10 @@
     <%= t('human_resource') %>
   </h3>
   <div id="app-back-button">
-    <%= back_button %>
+    <%#= back_button %>
   </div>
-</div>
-<div id="page-yield">
+</div><hr>
+<div id="page-yield" style="padding-left: 20px;">
   <% unless flash[:notice].nil? %>
     <p class="flash-msg">
       <%= flash[:notice] %>
@@ -18,64 +18,81 @@
   <% end %>
   <div id="box">
     <% if permitted_to? :settings, :employee %>
+      <div class="row">
+      <div class="col-md-6">
       <div class="link-box">
         <div class="link-heading">
-          <%= link_to "#{t('setting')}", :controller=>"employee", :action=>"settings" %>
+          <%= link_to "#{t('setting')}", {:controller=>"employee", :action=>"settings"}, style: "font-weight:bold;font-size:18px;" %>
         </div>
         <div class="link-descr">
           <%= "#{t('hr_setting')}" %>
           \.
         </div>
+        </div>
       </div>
     <% end %>
+    <div class="col-md-6">
     <% if permitted_to? :employee_management, :employee %>
       <div class="link-box">
         <div class="link-heading">
-          <%= link_to "#{t('employee_management_text')}", :controller=>"employee", :action=>"employee_management" %>
+          <%= link_to "#{t('employee_management_text')}", {:controller=>"employee", :action=>"employee_management"}, style: "font-weight:bold;font-size:18px;" %>
         </div>
         <div class="link-descr">
           <%= "#{t('manage_all_employee')}" %>
         </div>
       </div>
+      </div>
+      </div><br>
     <% end %>
+    <div class="row">
+    <div class="col-md-6">
     <% if permitted_to? :employee_attendance, :employee %>
       <div class="link-box">
         <div class="link-heading">
-          <%= link_to "#{t('employee_leave_management')}", :controller=>"employee", :action=>"employee_attendance" %>
+          <%= link_to "#{t('employee_leave_management')}", {:controller=>"employee", :action=>"employee_attendance"}, style: "font-weight:bold;font-size:18px;" %>
         </div>
         <div class="link-descr">
           <%= "#{t('manage_all_employee_attendance_and_leave')}" %>
         </div>
       </div>
+      </div>
     <% end %>
+    <div class="col-md-6">
     <% if permitted_to? :payslip, :employee %>
       <div class="link-box">
         <div class="link-heading">
-          <%= link_to  "#{t('create_payslip')}", :controller=>"employee", :action=>"payslip" %>
+          <%= link_to  "#{t('create_payslip')}", {:controller=>"employee", :action=>"payslip"}, style: "font-weight:bold;font-size:18px;" %>
         </div>
         <div class="link-descr">
           <%= "#{t('create_employee_monthly_payslip')}" %>
         </div>
       </div>
+      </div>
+      </div><br>
     <% end %>
+    <div class="row">
+    <div class="col-md-6">
     <% if permitted_to? :search, :employee %>
       <div class="link-box">
         <div class="link-heading">
-          <%= link_to "#{t('employee_search')}", :controller=>"employee", :action=>"search" %>
+          <%= link_to "#{t('employee_search')}", {:controller=>"employee", :action=>"search"}, style: "font-weight:bold;font-size:18px;" %>
         </div>
         <div class="link-descr">
           <%= "#{t('search_for_employees')}" %>
         </div>
       </div>
+      </div>
     <% end %>
+    <div class="col-md-6">
     <% if permitted_to? :department_payslip, :employee %>
       <div class="link-box">
         <div class="link-heading">
-          <%= link_to "#{t('employee_payslip')}", :controller=>"employee", :action=>"department_payslip" %>
+          <%= link_to "#{t('employee_payslip')}", {:controller=>"employee", :action=>"department_payslip"}, style: "font-weight:bold;font-size:18px;" %>
         </div>
         <div class="link-descr">
           <%= "#{t('view_department_wise_payslip')}" %>
         </div>
+      </div>
       </div>
     <% end %>
     <% finance = Setting.available_modules %>
@@ -83,7 +100,7 @@
       <% if permitted_to? :payslip_approve, :employee %>
         <div class="link-box">
           <div class="link-heading">
-            <%= link_to "#{t('one_click_aprove_payslip')}", :controller=>"employee", :action=>"payslip_approve" %>
+            <%= link_to "#{t('one_click_aprove_payslip')}", {:controller=>"employee", :action=>"payslip_approve"}, style: "font-weight:bold;font-size:18px;" %>
           </div>
           <div class="link-descr">
             <%= "#{t('aprove_monthly_payslip')}" %>

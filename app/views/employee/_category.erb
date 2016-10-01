@@ -1,43 +1,61 @@
-<ul id="category-list">
+<table class="table table-striped">
   <% unless @categories.empty? %>
-    <li class="listheading">
+    <th>
       <div class="category-name">
         <%= "#{t('active_category')}" %>
       </div>
-    </li>
+    </th>
+    <th></th>
+    <th></th>
     <% @categories.each do |c| %>
-      <li class="list<%= cycle('odd', 'even') %>">
+      <!-- <li class="list<%= cycle('odd', 'even') %>"> -->
+      <tr>
+      <td>
         <div class="category-name">
           <%= c.name %>
           (<%= c.prefix %>)
         </div>
+        </td>
+        <td>
         <div class="category-edit">
           <%= link_to "#{t('edit_text')}", {:action => "edit_category", :id=>c.id} %>
         </div>
+        </td>
+        <td>
         <div class="category-edit">
           <%= link_to "#{t('delete_text')}", {:action => "delete_category", :id=>c.id}, method: :DELETE, :confirm=>"#{t('delete_confirm_msg')}" %>
         </div>
-      </li>
+        </td>
+        </tr>
+      <!-- </li> -->
     <% end %>
     <% unless @inactive_categories.empty? %>
-      <li class="listheading">
+    <th>
         <div class="category-name">
           <%= "#{t('inactive_category')}" %>
         </div>
-      </li>
+      </th>
       <% @inactive_categories.each do |c| %>
-        <li class="list<%= cycle('odd', 'even') %>">
+        <!-- <li class="list<%= cycle('odd', 'even') %>"> -->
+        <tr>
+        <td>
           <div class="category-name">
             <%= c.name %>
             (<%= c.prefix %>)
           </div>
+        </td>
+        <td>
           <div class="category-edit">
             <%= link_to "#{t('edit_text')}", {:action => "edit_category", :id=>c.id} %>
           </div>
+        </td>
+        <td>
           <div class="category-edit">
             <%= link_to "#{t('delete_text')}", {:action => "delete_category", :id=>c.id}, method: :DELETE, :confirm=>"#{t('delete_confirm_msg')}" %>
           </div>
-        </li>
+        </td>
+        </tr>
+        <!-- </li> -->
       <% end %>
     <% end %>
   <% else %>
@@ -45,4 +63,4 @@
       <%= "#{t('no_category_record_found')}" %>
     </p>
   <% end %>
-</ul>
+</table>

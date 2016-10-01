@@ -1,43 +1,59 @@
-<ul id="department-list">
+<table class="table table-striped">
   <% unless @departments.empty? %>
-    <li class="listheading">
+  <th>
       <div class="department-name">
         <%= "#{t('active_department')}" %>
       </div>
-    </li>
+    </th>
+    <th></th>
+    <th></th>
     <% @departments.each do |d| %>
-      <li class="list<%= cycle('odd', 'even') %>">
+      <!-- <li class="list<%= cycle('odd', 'even') %>"> -->
+      <tr>
+      <td>
         <div class="department-name">
           <%= d.name %>
           (<%= d.code %>)
         </div>
+      </td>
+      <td>
         <div class="department-edit">
           <%= link_to "#{t('edit_text')}", :action => "edit_department", :id=>d.id %>
         </div>
+      </td>
+      <td>
         <div class="department-edit">
           <%= link_to "#{t('delete_text')}", {:action => "delete_department", :id=>d.id}, method: :DELETE, :confirm => "#{t('delete_confirm_msg')}" %>
         </div>
-      </li>
+      </td>
+      </tr>
     <% end %>
     <% unless @inactive_departments.empty? %>
-      <li class="listheading">
+    <th>
         <div class="department-name">
           <%= "#{t('inactive_department')}" %>
         </div>
-      </li>
+      </th>
       <% @inactive_departments.each do |c| %>
-        <li class="list<%= cycle('odd', 'even') %>">
+        <!-- <li class="list<%= cycle('odd', 'even') %>"> -->
+        <tr>
+        <td>
           <div class="department-name">
             <%= c.name %>
             (<%= c.code %>)
           </div>
+        </td>
+        <td>
           <div class="department-edit">
             <%= link_to "#{t('edit_text')}", {:action => "edit_department", :id=>c.id} %>
           </div>
+        </td>
+        <td>
           <div class="department-edit">
             <%= link_to "#{t('delete_text')}", {:action => "delete_department", :id=>c.id}, method: :DELETE, :confirm=>"#{t('delete_confirm_msg')}" %>
           </div>
-        </li>
+        </td>
+        </tr>
       <% end %>
     <% end %>
   <% else %>
@@ -45,4 +61,4 @@
       <%= "#{t('no_department_found')}" %>
     </p>
   <% end %>
-</ul>
+</table>

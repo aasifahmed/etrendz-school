@@ -1,5 +1,5 @@
 <div id="content-header">
-  <%= image_tag("  HR/show_hr.png") %>
+  <%#= image_tag("  HR/show_hr.png") %>
   <h1>
     <%= t('setting') %>
   </h1>
@@ -7,62 +7,80 @@
     <%= "#{t('hr_setting')}" %>
   </h3>
   <div id="app-back-button">
-    <%= back_button %>
+    <%#= back_button %>
   </div>
-</div>
-<div id="page-yield">
+</div><hr>
+<div id="page-yield" style="padding-left: 20px;">
   <div id="box">
+  <div class="row">
+  <div class="col-md-6">
     <div class="link-box">
       <div class="link-heading">
-        <%= link_to "#{t('add_employee_category')}", :controller=>"employee", :action=>"add_category" %>
+        <%= link_to "#{t('add_employee_category')}", {:controller=>"employee", :action=>"add_category"}, style: "font-weight:bold;font-size:18px;" %>
       </div>
       <div class="link-descr">
         <%= "#{t('add_edit_employee_category')}" %>
       </div>
     </div>
+    </div>
+    <div class="col-md-6">
     <div class="link-box">
       <div class="link-heading">
-        <%= link_to "#{t('add_employee_position')}", :controller=>"employee", :action=>"add_position" %>
+        <%= link_to "#{t('add_employee_position')}", {:controller=>"employee", :action=>"add_position"}, style: "font-weight:bold;font-size:18px;" %>
       </div>
       <div class="link-descr">
         <%= "#{t('add_edit_employee_position')}" %>
       </div>
     </div>
+    </div>
+    </div><br>
+    <div class="row">
+    <div class="col-md-6">
     <div class="link-box">
       <div class="link-heading">
-        <%= link_to "#{t('add_employee_department')}", :controller=>"employee", :action=>"add_department" %>
+        <%= link_to "#{t('add_employee_department')}", {:controller=>"employee", :action=>"add_department"}, style: "font-weight:bold;font-size:18px;" %>
       </div>
       <div class="link-descr">
         <%= "#{t('add_edit_employee_department')}" %>
       </div>
     </div>
+    </div>
+    <div class="col-md-6">
     <div class="link-box">
       <div class="link-heading">
-        <%= link_to "#{t('add_employee_grade')}", :controller=>"employee", :action=>"add_grade" %>
+        <%= link_to "#{t('add_employee_grade')}", {:controller=>"employee", :action=>"add_grade"}, style: "font-weight:bold;font-size:18px;" %>
       </div>
       <div class="link-descr">
         <%= "#{t('add_edit_employee_grade')}" %>
       </div>
     </div>
+    </div>
+    </div><br>
+    <div class="row">
+    <div class="col-md-6">
     <div class="link-box">
       <div class="link-heading">
-        <%= link_to "#{t('add_payroll_category')}", :controller=>"payroll", :action=>"add_category" %>
+        <%= link_to "#{t('add_payroll_category')}", {:controller=>"payroll", :action=>"add_category"}, style: "font-weight:bold;font-size:18px;" %>
       </div>
       <div class="link-descr">
         <%= "#{t('add_edit_employee_payroll_category')}" %>
       </div>
     </div>
+    </div>
+    <div class="col-md-6">
     <div class="link-box">
       <div class="link-heading">
-        <%= link_to "#{t('add_bank_detail')}", :controller=>"employee", :action=>"add_bank_details" %>
+        <%= link_to "#{t('add_bank_detail')}", {:controller=>"employee", :action=>"add_bank_details"}, style: "font-weight:bold;font-size:18px;" %>
       </div>
       <div class="link-descr">
         <%= "#{t('add_edit_bank_detail')} " %>
       </div>
     </div>
+    </div>
+    </div><br>
     <div class="link-box">
       <div class="link-heading">
-        <%= link_to "#{t('add_additional_detail')}", :controller=>"employee", :action=>"add_additional_details" %>
+        <%= link_to "#{t('add_additional_detail')}", {:controller=>"employee", :action=>"add_additional_details"}, style: "font-weight:bold;font-size:18px;" %>
       </div>
       <div class="link-descr">
         <%= "#{t('add_edit_additional_detail')}" %>

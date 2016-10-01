@@ -1,5 +1,5 @@
 <div id="content-header">
-  <%= image_tag("  HR/show_hr.png") %>
+  <%#= image_tag("  HR/show_hr.png") %>
   <h1>
     <%= "#{t('employee_settings')}" %>
   </h1>
@@ -7,15 +7,15 @@
     <%= "#{t('add_grade')}" %>
   </h3>
   <div id="app-back-button">
-    <%= back_button %>
+    <%#= back_button %>
   </div>
-</div>
-<div id="page-yield">
+</div><hr>
+<div id="page-yield" style="padding-left: 20px;">
   <div class="box">
     <div class="bread_crumb">
-      <%= link_to t('hr_text'), controller: :employee, action: :hr %>
-      \#{link_to t('hr_setting'), controller: :employee, action: :settings} 
-      \#{t('add_grade')}
+      <%= link_to t('hr_text'), {controller: :employee, action: :hr}, class: "label label-lg label-pink arrowed-right" %>
+      <!-- \#{link_to t('hr_setting'), controller: :employee, action: :settings}  -->
+      <!-- \#{t('add_grade')} -->
     </div>
     <% unless flash[:warn_notice].nil? %>
       <div id="errorExplanation1">
@@ -35,41 +35,69 @@
       <%= error_messages_for 'grade' %>
       <div id="form-content">
         <div class="label-field-pair">
+    <div class="row">
+      <div class="col-md-2">
           <label for="grade_name">
             <%= t('name') %>
           </label>
+      </div>
+      <div class="col-md-2">
           <div class="text-input-bg">
             <%= c.text_field :name %>
           </div>
-        </div>
+      </div>
+    </div>
+        </div><br>
         <div class="label-field-pair">
+    <div class="row">
+      <div class="col-md-2">
           <label for="grade_priority">
             <%= t('priority') %>
           </label>
+      </div>
+      <div class="col-md-2">
           <div class="text-input-bg">
             <%= c.text_field :priority %>
           </div>
-        </div>
+      </div>
+    </div>
+        </div><br>
         <div class="label-field-pair">
+    <div class="row">
+      <div class="col-md-2">
           <label for="grade_priority">
             <%= t('max_period_per_day') %>
           </label>
+      </div>
+      <div class="col-md-2">
           <div class="text-input-bg">
             <%= c.text_field :max_hours_day %>
           </div>
-        </div>
+      </div>
+    </div>
+        </div><br>
         <div class="label-field-pair">
+    <div class="row">
+      <div class="col-md-2">
           <label for="grade_priority">
             <%= t('max_period_per_week') %>
           </label>
+      </div>
+      <div class="col-md-2">
           <div class="text-input-bg">
             <%= c.text_field :max_hours_week %>
           </div>
-        </div>
+      </div>
+    </div>
+        </div><br>
         <div class="label-checkbox-pair">
+    <div class="row">
+      <div class="col-md-2">
           <label class="status" for="status">
             <%= t('status') %>
           </label>
+      </div>
+      <div class="col-md-2">
           <div id="radio-buttons">
             <%= c.radio_button  "status", "true", :checked => "checked" %>
             <label class="label_for_status" for="grade_status_true">
@@ -80,10 +108,12 @@
               <%= t('inactive') %>
             </label>
           </div>
+      </div>
+    </div>
         </div>
         <div id="submit-button">
-          <%= submit_tag(" #{t('create_text')}") %>
-        </div>
+          <%= submit_tag(" #{t('create_text')}", class: "btn btn-success") %>
+        </div><br>
       </div>
     <% end %>
     <div id="grade-list">
