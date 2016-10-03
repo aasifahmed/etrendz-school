@@ -1,6 +1,6 @@
 <%= javascript_include_tag :application %>
 <div id="content-header">
-  <%= image_tag("HR/show_hr.png") %>
+  <%#= image_tag("HR/show_hr.png") %>
   <h1>
     <%= t('employee_subject') %>
   </h1>
@@ -8,19 +8,25 @@
     <%= t('associate') %>
   </h3>
   <div id="app-back-button">
-    <%= back_button %>
+    <%#= back_button %>
   </div>
-</div>
-<div id="page-yield">
+</div><hr>
+<div id="page-yield" style="padding-left: 20px;">
   <div id="form-content">
     <div class="label-field-pair">
+    <div class="row">
+    <div class="col-md-2">
       <label for="course_name">
         <%= t('course_text') %>
       </label>
+    </div>
+    <div class="col-md-2">
       <div class="text-input-bg">
         <%= select :subject_assignment, :batch_id, @batches.map {|b| [b.full_name, b.id]}, {prompt: t('select_a_batch')},{ onChange: "onChangeRequest(this, '#{url_for(action: :update_subjects, batch_id: 'paramid')}')" } %>
       </div>
     </div>
+    </div>
+    </div><br>
     <div id="subjects1">
       <%= render partial: 'subjects', object: @subjects %>
     </div>

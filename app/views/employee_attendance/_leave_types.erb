@@ -1,46 +1,67 @@
-<ul class="leave-type-list">
+<table class="table table-striped">
   <% unless @leave_types.empty? %>
-    <li class="listheading">
+    <th>
       <div class="leave-type-name">
         <%= t('active_leave') %>
       </div>
-    </li>
+    </th>
+    <th></th>
+    <th></th>
+    <th></th>
     <% @leave_types.each do |c| %>
-      <li class="list<%= cycle('odd', 'even') %>">
+      <!-- <li class="list<%= cycle('odd', 'even') %>"> -->
+      <tr>
+      <td>
         <div class="leave-type-name">
           <%= c.name %>
           -<%= c.code %>
         </div>
+      </td>
+      <td>
         <div class="leave-type-edit">
           <%= link_to "#{t('edit_text')}", {:action => "edit_leave_types", :id=>c.id} %>
         </div>
+      </td>
+      <td>
         <div class="leave-type-edit">
           <%= link_to "#{t('delete_text')}", {:action => "delete_leave_types", :id=>c.id},:confirm=>"#{t('delete_confirm_msg')}", method: :DELETE %>
         </div>
+      </td>
+      <td>
         <div class="leave-type-edit">
           <%= "#{t('Inactive')}" unless c.status == true %>
         </div>
-      </li>
+      </td>
+      </tr>
     <% end %>
     <% unless @inactive_leave_types.empty? %>
-      <li class="listheading">
+      <th>
         <div class="leave-type-name">
           <%= t('inactive_leave') %>
         </div>
-      </li>
+      </th>
+      <th></th>
+      <th></th>
       <% @inactive_leave_types.each do |c| %>
-        <li class="list<%= cycle('odd', 'even') %>">
+        <!-- <li class="list<%= cycle('odd', 'even') %>"> -->
+        <tr>
+        <td>
           <div class="leave-type-name">
             <%= c.name %>
             -<%= c.code %>
           </div>
+        </td>
+        <td>
           <div class="leave-type-edit">
             <%= link_to "#{t('edit_text')}", {:action => "edit_leave_types", :id=>c.id} %>
           </div>
+        </td>
+        <td>
           <div class="leave-type-edit">
             <%= link_to "#{t('delete_text')}", {:action => "delete_leave_types", :id=>c.id},:confirm=>"#{t('delete_confirm_msg')}", method: :DELETE %>
           </div>
-        </li>
+        </td>
+        </tr>
       <% end %>
     <% end %>
   <% else %>
@@ -48,4 +69,4 @@
       <%= t('employee_leave_types_records') %>
     </p>
   <% end %>
-</ul>
+</table>

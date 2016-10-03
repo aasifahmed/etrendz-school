@@ -1,0 +1,84 @@
+<%= javascript_include_tag :application %>
+<div id="content-header">
+  <%#= image_tag("HR/show_hr.png") %>
+  <h1>
+    <%= t('employee_search') %>
+  </h1>
+  <h3>
+    <%= t('employee_details') %>
+  </h3>
+  <div id="app-back-button">
+    <%#= back_button %>
+  </div>
+</div><hr>
+<!-- <div id="inner-tab-menu">
+  <ul>
+    <li>
+      <%= link_to "#{t('view_all')}", :controller=>"employee", :action=>"view_all" %>
+    </li>
+    <li>
+      <%= link_to "#{t('advanced')}", :controller=>"employee", :action=>"advanced_search" %>
+    </li>
+  </ul>
+</div> -->
+<div id="page-yield" style="padding-left: 20px;">
+  <div id="search_box_bg">
+    <div id="form-content">
+      <form name="employee" style="display:inline;">
+        <label for="name">
+        <%= t('search_text') %>
+        <%= image_tag("loader.gif", :style => "align: absmiddle; border: 0; display: none;", id: "loader") %>
+        </label>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="row">
+<div class="col-md-2">
+<div id="search_textbox">
+  <%= text_field_tag("query", params['query'], :autocomplete => 'off', :onChange => 'search_ajax();') %>
+  <br/>
+</div>
+</div>
+<div class="advanced_options">
+<div class="col-md-2">
+  <div class="advanced_options">
+    <%= select :employee, :department_id, @departments.map { |s| [s.name, s.id] },{:prompt => "#{t('select_a_department')}"},{onChange: "search_ajax();"} %>
+  </div>
+</div>
+<div class="col-md-2">
+  <div class="advanced_options">
+    <%= select :employee, :category_id, @categories.map { |s| [s.name, s.id] },{:prompt => "#{t('select_category')}"},{onChange: "search_ajax();"} %>
+  </div>
+</div>
+<div class="col-md-2">
+  <div class="advanced_options">
+    <%= select :employee, :position_id, @positions.map { |s| [s.name, s.id] },{:prompt => "#{t('select_position')}"},{onChange: "search_ajax();"} %>
+  </div>
+</div>
+<div class="col-md-2">
+  <div class="advanced_options">
+    <%= select :employee, :grade_id, @grades.map { |s| [s.name, s.id] },{:prompt => "#{t('select_grade')}"},{onChange: "search_ajax();"} %>
+  </div>
+</div>
+  <div class="extender"></div>
+</div>
+</div>
+<script>
+  
+      function search_ajax() { var query = document.getElementById('query').value;
+                                        var dept = document.getElementById('employee_department_id').value;
+                                        var cat = document.getElementById('employee_category_id').value;
+                                        var position = document.getElementById('employee_position_id').value;
+                                        var grade = document.getElementById('employee_grade_id').value;
+                                        $.ajax({ type: "GET",   
+                                                url: "search_ajax",
+                                                data: { query: query, employee_department_id: dept, employee_category_id: cat, employee_position_id: position, employee_grade_id: grade} ,
+                                               
+                                       });
+                                       }
+
+</script>
+<div class="extender">
+  <div id="information"></div>
+</div>

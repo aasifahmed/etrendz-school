@@ -1,0 +1,77 @@
+<%= javascript_include_tag :application %>
+<div id="content-header">
+  <%#= image_tag("HR/show_hr.png") %>
+  <h1>
+    <%= t('payslip_text') %>
+  </h1>
+  <h3>
+    <%= t('create_text') %>
+  </h3>
+  <div id="app-back-button">
+    <%#= back_button %>
+  </div>
+</div><hr>
+<div id="page-yield" style="padding-left: 20px;">
+  <% unless flash[:notice].nil? %>
+    <p class="flash-msg">
+      <%= flash[:notice] %>
+    </p>
+  <% end %>
+  <div class="bread_crumb">
+    <%= link_to t('hr'), {:controller => "employee", :action=>"hr"}, class: "label label-lg label-pink arrowed-right" %>
+    <!-- \#{t('create_payslip')} -->
+  </div><br>
+  <div id="box">
+  <div class="row">
+  <div class="col-md-6">
+    <div class="link-box">
+      <div class="link-heading">
+        <%= link_to "#{t('select_employee')}", {:controller=>"employee", :action=>"select_department_employee"}, style: "font-weight:bold;font-size:18px;" %>
+      </div>
+      <div class="link-descr">
+        <%= t('link_desc1') %>
+      </div>
+    </div>
+    </div>
+    <div class="col-md-6">
+    <div class="link-box">
+      <div class="link-heading">
+        <%= link_to "#{t('rejected_employee')}", {:controller=>"employee", :action=>"rejected_payslip"}, style: "font-weight:bold;font-size:18px;" %>
+      </div>
+      <div class="link-descr">
+        <%= t('link_desc4') %>
+      </div>
+    </div>
+    </div>
+    </div><br>
+  <div class="row">
+  <div class="col-md-6">
+    <div class="link-box">
+      <div class="link-heading">
+        <%= link_to "#{t('one_click_payslip')}",{:controller=>"employee", :action=>"payslip_date_select", :remote => true}, style: "font-weight:bold;font-size:18px;" %>
+      </div>
+      <div class="link-descr">
+        <%= t('link_desc2') %>
+      </div>
+    </div>
+    </div>
+    <div class="col-md-6">
+    <div class="link-box">
+      <div class="link-heading">
+        <%= link_to "#{t('one_click_payslip_revert')}",{:controller=>"employee", :action=>"payslip_revert_date_select", :remote => true}, style: "font-weight:bold;font-size:18px;" %>
+      </div>
+      <div class="link-descr">
+        <%= t('link_desc3') %>
+      </div>
+    </div>
+    </div>
+    </div><br>
+    <div class="extender"></div>
+    <div class="loader-image">
+    <%= image_tag("loader2.gif", :style => "align: absmiddle; border: 0; display: none;", id: "loader") %>
+    </div>
+  </div>
+</div>
+<div id="message-div">
+  <div class="extender"></div>
+</div>

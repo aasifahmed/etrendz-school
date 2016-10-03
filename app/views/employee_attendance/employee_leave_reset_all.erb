@@ -1,0 +1,48 @@
+<%= javascript_include_tag :application %>
+<%= stylesheet_link_tag("employee_attendance/employee_leave_reset_all.css") %>
+<div id="content-header">
+  <%#= image_tag("HR/leave-new.png") %>
+  <h1>
+    <%= t('full_leave_reset') %>
+  </h1>
+  <h3>
+    <%= t('reset_leave_count_for_all') %>
+  </h3>
+  <div id="app-back-button">
+    <%#= back_button %>
+  </div>
+</div><hr>
+<div id="page-yield" style="padding-left: 20px;">
+  <div id="box">
+    <% unless flash[:notice].nil? %>
+      <p class="flash-msg">
+        <%= flash[:notice] %>
+      </p>
+    <% end %>
+    <div class="bread_crumb">
+      <%= link_to t('hr'), {:controller => "employee", :action=>"hr"}, class: "label label-lg label-pink arrowed-right" %>
+      <!-- \#{link_to t('employee_leave_management'), :controller => "employee", :action => "employee_attendance"}  -->
+      <!-- \#{link_to t('reset_leave'), :controller => "employee_attendance", :action => "manual_reset"}  -->
+      <!-- \#{t('reset_all')} -->
+    </div>
+    <div id="main-reset-box">
+      <div id="reset-box">
+        <p>
+          <%= t('reset_count_msg') %>
+        </p>
+        <div class="row">
+        <div class="col-md-1">
+        <div id="skip">
+          <%= link_to " #{t('reset')}", {:action =>'update_employee_leave_reset_all', :remote => true}, {:class=>"btn btn-warning"} %>
+        </div>
+        </div>
+        <div class="col-md-1">
+        <div>
+          <%= link_to " #{t('cancel')}", { :action => "manual_reset"}, :class=>"btn btn-danger" %>
+        </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

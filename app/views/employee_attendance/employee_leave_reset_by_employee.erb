@@ -1,0 +1,88 @@
+<%= stylesheet_link_tag("employee_attendance/employee_leave_reset_by_employee.css") %>
+<%= stylesheet_link_tag("_layouts/style.css") %>
+<%= javascript_include_tag :application %>
+<div id="content-header">
+  <%#= image_tag("HR/leave-new.png") %>
+  <h1>
+    <%= t('reset_employee_leaves') %>
+  </h1>
+  <h3>
+    <%= t('reset_employee_leave_for_each_emp') %>
+  </h3>
+  <div id="app-back-button">
+    <%#= back_button %>
+  </div>
+</div><hr>
+<script>
+  
+    function employee_search_ajax() { 
+    var query = document.getElementById('query').value;
+                                        var dept = document.getElementById('employee_department_id').value;
+                                        var cat = document.getElementById('employee_category_id').value;
+                                        var position = document.getElementById('employee_position_id').value;
+                                        var grade = document.getElementById('employee_grade_id').value;
+                                        $.ajax({ type: "GET",   
+                                                url: "employee_search_ajax",
+                                                data: { query: query, employee_department_id: dept, employee_category_id: cat, employee_position_id: position, employee_grade_id: grade} ,
+                                               
+                                       });
+                                       }
+
+
+</script>
+<!-- <div id="inner-tab-menu">
+  <ul>
+    <li>
+      <%= link_to "#{t('view_all')}", :controller=>"employee_attendance", :action=>"employee_view_all" %>
+    </li>
+  </ul>
+</div> -->
+<div id="page-yield" style="padding-left: 20px;">
+  <div class="bread_crumb">
+    <%= link_to t('hr'), {:controller => "employee", :action=>"hr"}, class: "label label-lg label-pink arrowed-right" %>
+    <%= link_to t('employee_leave_management'), {:controller => "employee", :action => "employee_attendance"}, class: "label label-lg label-pink arrowed-right arrowed-in" %>
+    <%= link_to t('reset_leave'), {:controller => "employee_attendance", :action => "manual_reset"}, class: "label label-lg label-pink arrowed-right arrowed-in" %>
+    <%#= t('individual_reset', class: "label label-lg label-pink arrowed-right arrowed-in") %>
+  </div>
+</div><br>
+<div id="search_box_bg" style="padding-left: 20px;">
+  <div id="form-content">
+    <form name="employee" style="display:inline;">
+      <label for="name">
+        <%= t('search_text') %>
+        <%= image_tag("loader.gif", :style => "align: absmiddle; border: 0; display: none;", id: "loader") %>
+      </label>
+    </form>
+  </div>
+</div>
+<div class="row">
+<div class="col-md-2">
+<div id="search_textbox">
+  <%= text_field_tag("query", params['query'], :autocomplete => 'off', :onChange => "employee_search_ajax();") %>
+</div>
+</div>
+<div class="advanced_options">
+<div class="col-md-2">
+  <div class="advanced-options-select">
+    <%= select :employee, :department_id, @departments.map {|s| [s.name, s.id]}, {:prompt => "#{t('select_department')}"}, {:onChange => "employee_search_ajax();"} %>
+  </div>
+</div>
+<div class="col-md-2">
+  <div class="advanced-options-select">
+    <%= select :employee, :category_id,   @categories.map {|s| [s.name, s.id]},  {:prompt => "#{t('select_category')}"}, {:onChange => "employee_search_ajax();"} %>
+  </div>
+</div>
+<div class="col-md-2">
+  <div class="advanced-options-select">
+    <%= select :employee, :position_id,   @positions.map {|s| [s.name, s.id]},   {:prompt => "#{t('select_position')}"}, {:onChange => "employee_search_ajax();"} %>
+  </div>
+</div>
+<div class="col-md-2">
+  <div class="advanced-options-select">
+    <%= select :employee, :grade_id,      @grades.map {|s| [s.name, s.id]},      {:prompt => "#{t('select_grade')}"}, {:onChange => "employee_search_ajax();"} %>
+  </div>
+</div>
+  <div class="extender"></div>
+  <div id="information"></div>
+</div>
+</div>

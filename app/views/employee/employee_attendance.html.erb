@@ -1,5 +1,5 @@
 <div id="content-header">
-  <%= image_tag("attendence/attendence.png") %>
+  <%#= image_tag("attendence/attendence.png") %>
   <h1>
     <%= t('manage_attendance') %>
   </h1>
@@ -7,48 +7,59 @@
     <%= t('leave_attendance') %>
   </h3>
   <div id="app-back-button">
-    <%= back_button %>
+    <%#= back_button %>
   </div>
-</div>
-<div id="page-yield">
+</div><hr>
+<div id="page-yield" style="padding-left: 20px;">
   <% unless flash[:notice].nil? %>
     <p class="flash-msg">
       <%= flash[:notice] %>
     </p>
   <% end %>
   <div id="box">
+      <div class="row">
+      <div class="col-md-6">
     <div class="link-box">
       <div class="link-heading">
-        <%= link_to "#{t('add_type')}", :controller=>"employee_attendance", :action=>"add_leave_types" %>
+        <%= link_to "#{t('add_type')}", {:controller=>"employee_attendance", :action=>"add_leave_types"}, style: "font-weight:bold;font-size:18px;" %>
       </div>
       <div class="link-descr">
         <%= t('link_dec1') %>
       </div>
     </div>
+    </div>
+    <div class="col-md-6">
     <div class="link-box">
       <div class="link-heading">
-        <%= link_to "#{t('attendance_register')}", :controller=>"employee_attendances", :action=>"index" %>
+        <%= link_to "#{t('attendance_register')}", {:controller=>"employee_attendances", :action=>"index"}, style: "font-weight:bold;font-size:18px;" %>
       </div>
       <div class="link-descr">
         <%= t('register_attendance') %>
       </div>
     </div>
+    </div>
+    </div><br>
+      <div class="row">
+      <div class="col-md-6">
     <div class="link-box">
       <div class="link-heading">
-        <%= link_to "#{t('attendance_report')}", :controller=>"employee_attendance", :action=>"report" %>
+        <%= link_to "#{t('attendance_report')}", {:controller=>"employee_attendance", :action=>"report"}, style: "font-weight:bold;font-size:18px;" %>
       </div>
       <div class="link-descr">
         <%= t('attendance_report') %>
-        \.
       </div>
     </div>
+    </div>
+    <div class="col-md-6">
     <div class="link-box">
       <div class="link-heading">
-        <%= link_to "#{t('reset_leave')}", :controller=>"employee_attendance", :action=>"manual_reset" %>
+        <%= link_to "#{t('reset_leave')}", {:controller=>"employee_attendance", :action=>"manual_reset"}, style: "font-weight:bold;font-size:18px;" %>
       </div>
       <div class="link-descr">
         <%= t('reset_employee_leaves') %>
       </div>
+    </div>
+    </div>
     </div>
   </div>
 </div>

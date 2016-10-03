@@ -1,6 +1,6 @@
 <%= javascript_include_tag :application %>
 <div id="content-header">
-  <%= image_tag("  HR/show_hr.png") %>
+  <%#= image_tag("  HR/show_hr.png") %>
   <h1>
     <%= t('payslip_generation') %>
   </h1>
@@ -8,18 +8,18 @@
     <%= t('individual_employee') %>
   </h3>
   <div id="app-back-button">
-    <%= back_button %>
+    <%#= back_button %>
   </div>
-</div>
-<div id="page-yield">
+</div><hr>
+<div id="page-yield" style="padding-left: 20px;">
   <% unless flash[:notice].nil? %>
     <p class="flash-msg">
       <%= flash[:notice] %>
     </p>
   <% end %>
   <div class="bread_crumb">
-    <%= link_to t('hr'), :controller => "employee", :action=>"hr" %>
-  </div>
+    <%= link_to t('hr'), {:controller => "employee", :action=>"hr"}, class: "label label-lg label-pink arrowed-right" %>
+  </div><br>
   <div class="drop-down-box">
     <label for="category_prefix">
       <%= t('select_a_department') %>

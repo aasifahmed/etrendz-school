@@ -1,0 +1,73 @@
+<%= stylesheet_link_tag("employee_attendance/manual_reset.css") %>
+<div id="content-header">
+  <%#= image_tag("  HR/leave-new.png") %>
+  <h1>
+    <%= t('manual_leave_reset') %>
+  </h1>
+  <h3>
+    <%= t('reset_employee_leave_manually') %>
+  </h3>
+  <div id="app-back-button">
+    <%#= back_button %>
+  </div>
+</div><hr>
+<div id="page-yield" style="padding-left: 20px;">
+  <div class="bread_crumb">
+    <%= link_to t('hr'), {:controller => "employee", :action=>"hr"}, class: "label label-lg label-pink arrowed-right" %><br>
+    <!-- \#{link_to t('employee_leave_management'), :controller => "employee", :action => "employee_attendance"}  -->
+    <!-- \#{t('reset_leave')} -->
+  </div>
+  <% unless flash[:notice].nil? %>
+    <p class="flash-msg">
+      <%= flash[:notice] %>
+    </p>
+  <% end %>
+  <div id="box">
+  <div class="row">
+  <div class="col-md-6">
+    <div class="link-box">
+      <div class="link-heading">
+        <%= link_to "#{t('leave_reset_settings')}", {:action => "leave_reset_settings"}, style: "font-weight:bold;font-size:18px;" %>
+      </div>
+      <div class="link-descr">
+        <%= t('configure_automatic_leave_reset') %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="link-box">
+      <div class="link-heading">
+        <%= link_to "#{t('reset_all')} ", {:action => "employee_leave_reset_all"}, style: "font-weight:bold;font-size:18px;" %>
+      </div>
+      <div class="link-descr">
+        <%= t('reset_leave_count_for_all') %>
+        \.
+      </div>
+    </div>
+  </div>
+  </div><br>
+  <div class="row">
+  <div class="col-md-6">
+    <div class="link-box">
+      <div class="link-heading">
+        <%= link_to "#{t('department_reset')}", {:action => "employee_leave_reset_by_department"}, style: "font-weight:bold;font-size:18px;" %>
+      </div>
+      <div class="link-descr">
+        <%= t('reset_emp_leave_count_by_dept') %>
+        \.
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="link-box">
+      <div class="link-heading">
+        <%= link_to "#{t('individual_reset')}", {:action => "employee_leave_reset_by_employee"}, style: "font-weight:bold;font-size:18px;" %>
+      </div>
+      <div class="link-descr">
+        <%= t('reset_emp_leave_count_ind') %>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+</div>
