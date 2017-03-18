@@ -1,0 +1,69 @@
+<div id="content-header">
+  <%#= image_tag("show_timetable.png") %>
+  <h1>
+    <%= t('timetable_text') %>
+  </h1>
+  <h3>
+    <%= t('new_timetable') %>
+  </h3>
+  <div id="app-back-button">
+    <%#= back_button %>
+  </div>
+</div>
+<div id="page-yield">
+  <div class="box">
+    <% unless flash[:notice].nil? %>
+      <p class="flash-msg">
+        <%= flash[:notice] %>
+      </p>
+    <% end %>
+    <% if @timetable && @timetable.errors %>
+      <div class="errorExplanation" id="errorExplanation">
+        <% @timetable_errors.each do |e| %>
+          <p>
+            <%= t("#{e}") %>
+          </p>
+        <% end %>
+      </div>
+    <% end %>
+    <%= form_for :timetable do |f| %>
+      <div class="label-field-pair col-md-4">
+        <label for="start_date">
+          <%= t('start_date') %>
+        </label>
+        <div class="input-group">
+          <%= f.text_field :start_date, class: "start_date form-control" %>
+                <span class="input-group-addon">
+                  <i class="ace-icon fa fa-calendar bigger-110"></i>
+                </span>
+        </div>
+      </div>
+      <div class="label-field-pair col-md-4">
+        <label for="end_date">
+          <%= t('end_date') %>
+        </label>
+        <div class="input-group">
+          <%= f.text_field :end_date, class: "end_date form-control" %>
+                <span class="input-group-addon">
+                  <i class="ace-icon fa fa-calendar bigger-110"></i>
+                </span>
+        </div>
+      </div><br>
+      <%= submit_tag "", :value => " #{t('create_text')}", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+<script type="text/javascript">
+  $( ".start_date" ).datepicker({
+    dateFormat: 'yy-mm-dd',
+    showOtherMonths: true,
+    selectOtherMonths: false
+    //isRTL:true,
+  });
+  $( ".end_date" ).datepicker({
+    dateFormat: 'yy-mm-dd',
+    showOtherMonths: true,
+    selectOtherMonths: false
+    //isRTL:true,
+  });
+</script>

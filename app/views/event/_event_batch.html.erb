@@ -1,0 +1,29 @@
+<%= javascript_include_tag :application %>
+<div class="course-select">
+  <% unless @batch_events.empty? %>
+    <span class="title">
+      <%= "#{t('course_associated')}" %>
+    </span>
+    <div>
+      <ul id="category-list">
+        <% @batch_events.each do |c| %>
+          <li class="list<%= cycle('odd','even') %>">
+            <div class="category-name">
+              <%= Batch.find(c.batch_id).full_name %>
+            </div>
+            <div class="category-edit">
+              <%= link_to "#{t('remove')}", :controller=>"event",:action=>"remove_batch", :id=>c %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <%= link_to "#{t('select_more_course')}", {:controller=>"event", :action=>"select_course", :id=>params[:id]}, :html=>{:class=>"themed_text"}, :remote => true %>
+    <br/>
+  <% else %>
+    <span class="title">
+      <%= t('no_course_selected') %>
+    </span>
+    <%= link_to "#{t('select_a_course')}", {:controller=>"event", :action=>"select_course", :id=>params[:id]}, :html=>{:class=>"themed_text"}, :remote => true %>
+  <% end %>
+</div>

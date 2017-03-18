@@ -1,0 +1,110 @@
+<%= javascript_include_tag :application %>
+<%#= stylesheet_link_tag("fullcalendar.min.css") %>
+<div id="calendar-legend">
+  <div id="legend-entry">
+    <div id="legend-symbol">
+      <div class="legend-icon" style="background:#000000;"></div>
+    </div>
+    <div id="legend-text">
+      <%= t('events') %>
+    </div>
+  </div>
+  <div id="legend-entry">
+    <div id="legend-symbol">
+      <div class="legend-icon" style="background:#0C6C92;"></div>
+    </div>
+    <div id="legend-text">
+      <%= t('examinations') %>
+    </div>
+  </div>
+  <div id="legend-entry">
+    <div id="legend-symbol">
+      <div class="legend-icon" style="background:#00b400;"></div>
+    </div>
+    <div id="legend-text">
+      <%= t('holidays') %>
+    </div>
+  </div>
+  <div id="legend-entry">
+    <div id="legend-symbol">
+      <div class="legend-icon" style="background:#b40000;"></div>
+    </div>
+    <div id="legend-text">
+      <%= t('dues') %>
+    </div>
+  </div>
+</div>
+<br/>
+<div id="head-month pull-center">
+  <div class="header">
+  <div class="row">
+  <div class="col-md-2">
+    <div class="prev">
+      <%= link_to "left", {controller: :calendar, action: :new_calendar, new_month: (@show_month.month - 1), passed_date: @show_month}, remote: true, class: "label label-lg label-purple arrowed" %>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="month">
+      <%= I18n.l(@show_month, format: :month_year, class: "label label-lg label-purple arrowed-in arrowed-in-right") %>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="next">
+      <%= link_to "right", {controller: :calendar, action: :new_calendar, new_month: (@show_month.month+1), passed_date: @show_month }, remote: true, class: "label label-lg label-purple arrowed-right" %>
+    </div>
+  </div>
+  </div>
+    <div class="extender"></div>
+  </div>
+</div>
+<table align="center" id="calendar-table" width="100%">
+  <tbody>
+    <tr class="week">
+      <% [t('sunday'),t('monday'),t('tuesday'),t('wednesday'),t('thursday'),t('friday'),t('saturday')].each do |d| %>
+        <td>
+          <span>
+            <%= d %>
+          </span>
+        </td>
+      <% end %>
+    </tr>
+    <tr class="blank"></tr>
+    <% (1..6).each do |r| %>
+      <tr class="day">
+        <% (1..7).each do |c| %>
+          <% dt = c - @start_date_day + (r-1)*7 %>
+          <% day_style = (dt == @show_month.day && @local_tzone_time.to_date == @show_month)? "today" : nil %>
+          <td class="<%= day_style.to_s %>">
+            <% unless (r == 1 and c <= @start_date_day) %>
+              <% unless dt > @last_day.day %>
+                <% if permitted_to? :index, :event %>
+                  <div class="fc-day fc-widget-content fc-past">
+                    <%= link_to t('add'), url_for(controller: :event, action: :index, id: Date.parse("#{@show_month.year}-#{@show_month.month}-#{dt}")) %>
+                    <span>
+                      <%= dt %>
+                    </span>
+                  </div>
+                  <div class="link-group">
+                    <% if @events.include?("#{@show_month.year}-#{@show_month.month}-#{dt}".to_date) %>
+                      <%= link_to("<div class='calendar-legend' style='background:#000000;'></div>".html_safe, { url: 'javascrpt:void(0);', :remote => true},{:onmouseover => "onChangeRequest(this, '#{url_for(action: :show_event_tooltip, id: Date.parse("#{@show_month.year}-#{@show_month.month}-#{dt}") )}')", :class=>"event"}) %>
+                    <% end %>
+                    <% if @holiday_event.include?("#{@show_month.year}-#{@show_month.month}-#{dt}".to_date) %>
+                      <%= link_to("<div class='calendar-legend' style='background:#00b400;'></div>".html_safe,  { url: 'javascrpt:void(0);', :remote => true}, {:onmouseover => "onChangeRequest(this, '#{url_for(action: :show_holiday_event_tooltip, id: Date.parse("#{@show_month.year}-#{@show_month.month}-#{dt}") )}')", :class=>"event"}) %>
+                    <% end %>
+                    <% if @notifications['student_batch_exam'].include?("#{@show_month.year}-#{@show_month.month}-#{dt}".to_date) %>
+                      <%= link_to("<div class='calendar-legend' style='background:#0C6C92;'></div>".html_safe, {:url => {:action => "#"}, :remote => true} , {:onmouseover => "onChangeRequest(this, '#{url_for(action: :show_exam_event_tooltip, id: Date.parse("#{@show_month.year}-#{@show_month.month}-#{dt}") )}')", :class=>"event"}) %>
+                    <% end %>
+                    <% if @notifications['finance_due'].include?("#{@show_month.year}-#{@show_month.month}-#{dt}".to_date) %>
+                      <%= link_to("<div class='calendar-legend' style='background:#b40000;'></div>".html_safe, {:url => {:action => "#"}, :remote => true} , {:onmouseover => "onChangeRequest(this, '#{url_for(action: :show_due_tooltip, id: Date.parse("#{@show_month.year}-#{@show_month.month}-#{dt}") )}')", :class=>"event"}) %>
+                    <% end %>
+                  </div>
+                <% end %>
+              <% end %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div id="modal-box" style="display:none;"></div>

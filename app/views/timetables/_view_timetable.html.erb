@@ -1,0 +1,87 @@
+<div id="box">
+  <table align="center" border="0" cellspacing="0" id="table" width="100%">
+    <tr>
+      <td class="loader">
+        <%#= image_tag("loader.gif", :align => "absmiddle", :border => 0, :id => "loader",:style =>"display: none;" ) %>
+      </td>
+      <td class="td-blank"></td>
+      <% @class_timing.each do |pt| %>
+        <td class="td">
+          <div class="top themed_text">
+            <%= pt.start_time.strftime("%I:%M%p")  unless pt.start_time.nil? %>
+            \- #{pt.end_time.strftime("%I:%M%p")  unless pt.end_time.nil?}
+          </div>
+        </td>
+      <% end %>
+    </tr>
+    <tr class="blank">
+      <td></td>
+      <td></td>
+      <% @class_timing.each do |pt| %>
+        <td></td>
+      <% end %>
+    </tr>
+    <% @day.each do |d| %>
+      <tr>
+        <td class="td">
+          <div class="name themed_text">
+            <%= t(Date::DAYNAMES[d.day_of_week].downcase).upcase %>
+          </div>
+        </td>
+        <td class="td-blank"></td>
+        <% @class_timing.each do |ct| %>
+          <td class="td">
+            <div class="drop">
+              <div class="tt-subject">
+                <% if  @timetable[d.id][ct.id].present? %>
+                  <% unless  @timetable[d.id][ct.id].subject.elective_group.nil? %>
+                    <div class="subject themed_text">
+                      <%= @timetable[d.id][ct.id].subject.elective_group.name %>
+                      <span class="themed_text">
+                        <% @timetable[d.id][ct.id].subject.elective_group.subjects.each do |s| %>
+                          <%= s.name unless s.nil? %>
+                          <% @sub_emp = s.employees %>
+                          <% @sub_emp.each do |e| %>
+                            <div class="emp-name">
+                              <%= e.full_name unless @sub_emp.nil? %>
+                            </div>
+                          <% end %>
+                        <% end %>
+                      </span>
+                    </div>
+                    <div class="employee">
+                      <%= t('elective') %>
+                    </div>
+                  <% else %>
+                    <div class="subject themed_text">
+                      <%= @timetable[d.id][ct.id].subject.code %>
+                      <span class="themed_text">
+                        <%= @timetable[d.id][ct.id].subject.name %>
+                        <div class="emp-name">
+                          <%= @timetable[d.id][ct.id].employee.full_name unless @timetable[d.id][ct.id].employee.nil? %>
+                        </div>
+                      </span>
+                    </div>
+                    <div class="employee">
+                      <% if @timetable[d.id][ct.id].employee.present? %>
+                        <%= @timetable[d.id][ct.id].employee.first_name %>
+                      <% else %>
+                        <div class="subject"></div>
+                        <div class="employee"></div>
+                      <% end %>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </td>
+          <!-- timetable_td
+          -->
+        <% end %>
+      </tr>
+      <!-- timetable_tr
+      -->
+    <% end %>
+  </table>
+</div>
+<%= link_to "  #{t('pdf_report')}", {controller: :timetable, action: :timetable_pdf, course_id: @batch.id, timetable_id: @tt.id}, target: :blank, class: :user_button %>

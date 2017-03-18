@@ -16,13 +16,14 @@
 - #KIND, either express or implied.  See the License for the
 - #specific language governing permissions and limitations
 - #under the License.
-%ul#employee-list
-  - unless @employees.empty?
-    %li.heading
-      = t('employee_name')
-    - @employees.each do |e|
-      %li{:class => "list#{cycle('even','odd')}"}
-        .employee-name= link_to "#{e.employee.first_name}  ", :controller=>"employee", :action=>"view_rejected_payslip", :id=>e.employee_id, :id2=>e.salary_date
-  - else
-    %p.flash-msg
-      = t('message1')
+- unless @finance_due.empty?
+  .current-date
+    = I18n.l(@date,:format => :month_year)
+  - @finance_due.each do |h|
+    .events
+      .title
+        .legend-icon{:style => "background:#b40000;"}
+        = h.title
+      .extender
+      .desc= h.description
+      .extender

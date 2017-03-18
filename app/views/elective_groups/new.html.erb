@@ -1,6 +1,6 @@
 <%= stylesheet_link_tag("elective_groups/new.css") %>
 <div id="content-header">
-  <%= image_tag("examination/show_exam.png") %>
+  <%#= image_tag("examination/show_exam.png") %>
   <h1>
     <%= t('batches_text') %>
   </h1>
@@ -8,27 +8,23 @@
     <%= "#{t('new_elective')}" %>
   </h3>
   <div id="app-back-button">
-    <%= back_button %>
+    <%#= back_button %>
   </div>
-</div>
+</div><hr>
 <div id="inner-tab-menu">
-  <ul>
-    <li>
-      <%= link_to t('new_text'), {:action => :new, :batch_id => @batch.id} %>
-    </li>
-  </ul>
-</div>
-<div id="page-yield">
+      <%= link_to t('new_text'), {:action => :new, :batch_id => @batch.id}, class: "label label-lg label-purple arrowed-right" %>
+</div><br>
+<div id="page-yield" style="padding-left: 20px;">
   <% unless flash[:notice].nil? %>
     <p class="flash-msg">
       <%= flash[:notice] %>
     </p>
   <% end %>
   <div class="bread_crumb">
-    <%= link_to t('course_text'), courses_path %> »
-    <%= link_to @course.full_name, @course %> »
-    <%= link_to "#{t('batch')} #{@batch.name}", {:controller => :batches, :action => :show , :course_id => @course.id, :id => @batch.id} %> »
-    <%= link_to "#{t('electives')}", {:action => :index, :batch_id => @batch.id} %> »
+    <%= link_to t('course_text'), courses_path, class: "label label-lg label-pink arrowed-right" %> »
+    <%= link_to @course.full_name, @course, class: "label label-lg label-pink arrowed-right arrowed-in" %> »
+    <%= link_to "#{t('batch')} #{@batch.name}", {:controller => :batches, :action => :show , :course_id => @course.id, :id => @batch.id}, class: "label label-lg label-pink arrowed-right arrowed-in" %> »
+    <%= link_to "#{t('electives')}", {:action => :index, :batch_id => @batch.id}, class: "label label-lg label-pink arrowed-right arrowed-in" %> »
     <%= t('new_text') %>
   </div>
   <div class="box">
@@ -45,7 +41,7 @@
         </div>
       </div>
       <br>
-      <%= submit_tag "", :value => " #{t('save')}", :class => "btn btn-pink btn-sm" %>
+      <%= submit_tag "", :value => " #{t('save')}", :class => "btn btn-primary btn-sm" %>
     <% end %>
     <div class="extender"></div>
   </div>

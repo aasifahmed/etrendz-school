@@ -17,6 +17,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require fullcalendar.min
 //= require bootstrap.min
 //= require ace.min
 //= require jquery.turbolinks

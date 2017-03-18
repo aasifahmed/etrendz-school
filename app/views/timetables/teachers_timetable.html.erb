@@ -1,0 +1,28 @@
+<div id="content-header">
+  <%#= link_to  image_tag("show_timetable.png"), controller: :timetables %>
+  <h1>
+    <%= t('timetable_text') %>
+  </h1>
+  <h3>
+    <%= t('teacher_timetable') %>
+  </h3>
+  <div id="app-back-button">
+    <%#= back_button %>
+  </div>
+</div><hr>
+<div id="page-yield" style="padding-left: 20px;">
+  <%= form_for :timetable_entry do |s| %>
+    <div class="label-field-pair">
+      <label for="<%= :timetable_entry_course_id %>">
+        <%= t('select_a_tte') %>
+      </label>
+      <%= image_tag("loader.gif", align: :absmiddle, border: 0, id: :loader, style: "display: none;" ) %>
+      <div class="text-input-bg">
+        <%= select :timetable_entry, :timetable_id, @timetables.map {|c| ["#{c.start_date.strftime("%d %b %Y")} - #{c.end_date.strftime("%d %b %Y")}", c.id]}, {selected: @current.try(:id), prompt: t('select_a_tte')}, {onChange: "onChangeRequest(this, '#{url_for(action: :update_teacher_tt, timetable_id: 'paramid')}')"} %>
+      </div>
+    </div>
+  <% end %>
+  <div id="timetable_view">
+    <%= render :partial=>"teacher_timetable" %>
+  </div>
+</div>

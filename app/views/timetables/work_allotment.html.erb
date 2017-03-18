@@ -1,0 +1,88 @@
+<div id="content-header">
+  <%#= link_to image_tag("show_timetable.png"), controller: :timetables %>
+  <h1>
+    <%= t('timetable_text') %>
+  </h1>
+  <h3>
+    <%= t('work_allotment') %>
+  </h3>
+  <div id="app-back-button">
+    <%#= back_button %>
+  </div>
+</div>
+<div id="inner-tab-menu">
+  <ul style="list-style-type: none;">
+    <li>
+      <%= link_to t('assign_multiple_teachers'), {controller: :employee, action: :subject_assignment}, class: "label label-lg label-pink arrowed-right" %>
+    </li>
+  </ul>
+</div>
+<div id="page-yield">
+  <% unless flash[:notice].nil? %>
+    <p class="flash-msg">
+      <%= flash[:notice] %>
+    </p>
+  <% end %>
+  <%= form_for :employee_subjects, html: { id: :work_allotment_form } do |f| %>
+    <% @batches.each do |batch| %>
+      <ul class="category-list" style="list-style-type: none;">
+        <li class="heading">
+          <%= batch.full_name %>
+        </li>
+        <% batch.subjects.each do |subj| %>
+          <% subj.employees.each do |e| %>
+            <% ep=@employees.find_by_id(e.id) %>
+            <% if ep.present? %>
+              <%# ep.total_time = (ep.total_time.to_i - subj.max_weekly_classes.to_i) %>
+              <% @total_time[ep.id] = (@total_time[ep.id].to_i - subj.max_weekly_classes.to_i) %>
+            <% end %>
+          <% end %>
+          <li class="list<%= cycle('odd','even') %>">
+          <div class="col-md-3">
+            <div class="category-subject-name">
+              <%= "#{subj.name}" %>
+            </div>
+            <div class="category-employee-options">
+              <%= select_tag   "employee_subjects[#{subj.id}]", options_for_select([t('select_employee'),@employees.map{|em| [em.id,em.full_name]},subj.employees.first.try(:id)]) %>
+            </div>
+            <div class="category-employee-names">
+              <%= "#{subj.employees.collect(&:full_name).join(',')}" %>
+            </div><br>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+    <%= f.submit " #{t('update')}",:class=> "btn btn-success" %>
+  <% end %><br>
+  <ul class="category-list" id="teacher_status" style="list-style-type: none;">
+    <% @employees.each do |emp| %>
+      <li class="listodd">
+      <div class="col-md-6">
+      <div class="well well-sm">
+        <%= emp.full_name %>
+        <span id="emp_status_<%= emp.id %>">
+          <% #if emp.total_time.to_i < 0 %>
+          <% if @total_time[emp.id].to_i < 0 %>
+            <span class="deficit">
+              <%#= 0-emp.total_time.to_i %>
+              <%= 0-@total_time[emp.id].to_i %>
+              deficit
+            </span>
+          <%# elsif emp.total_time.to_i==0 %>
+          <% elsif @total_time[emp.id].to_i==0 %>
+            <span class="ok">OK</span>
+          <% else %>
+            <span class="remaining">
+              <%#= emp.total_time.to_i %>
+              <%= @total_time[emp.id].to_i %>
+              remaining
+            </span>
+          <% end %>
+        </span>
+        </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

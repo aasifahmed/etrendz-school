@@ -1,0 +1,90 @@
+<% unless  @all_timetable_entries.empty? %>
+  <div id="timetable-container">
+    <div class="employee_list">
+      <table cellspacing="1" id="teacher">
+        <tr class="themed_text" id="weekday-header">
+          <th></th>
+        </tr>
+        <tr class="themed_text" id="period-count">
+          <td></td>
+        </tr>
+        <% @all_teachers.each do |teacher| %>
+          <% unless teacher.nil? %>
+            <tr class="batch">
+              <td class="batch_name themed_text">
+                <%= "#{teacher.full_name} [ #{teacher.employee_number} ]" %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </table>
+    </div>
+    <div id="table-viewer">
+      <table cellspacing="1" id="timetable">
+        <tr class="themed_text" id="weekday-header">
+          <% @all_weekdays.each do |weekday| %>
+            <th colspan="<%= @all_classtimings.count %>">
+              <%= t("#{Date::DAYNAMES[weekday.day_of_week].downcase}").upcase %>
+            </th>
+          <% end %>
+        </tr>
+        <tr class="themed_text" id="period-count">
+          <% @all_weekdays.each do |weekday| %>
+            <% @all_classtimings.each do |ct| %>
+              <td class="tte">
+                <%= "#{ct.start_time.strftime("%I:%M%p")} - #{ct.end_time.strftime("%I:%M%p")}" %>
+              </td>
+            <% end %>
+          <% end %>
+        </tr>
+        <% @all_teachers.each do |teacher| %>
+          <% unless teacher.nil? %>
+            <tr class="batch">
+              <% @all_weekdays.each do |weekday| %>
+                <% @all_classtimings.each do |ct| %>
+                  <td class="tte">
+                    <% if @timetable_entries[teacher.id][weekday.id][ct.id].size > 1 %>
+                      <div class="entries_wrapper">
+                        <div class="entries">
+                          <% @timetable_entries[teacher.id][weekday.id][ct.id].each_pair do |k, entry| %>
+                            <div class="sub_name">
+                              <%= formatted_timetable_cell_2(entry,teacher) unless entry.blank? %>
+                            </div>
+                            <div class="batch_code">
+                              <%= timetable_batch (entry) unless entry.blank? %>
+                            </div>
+                            <div class="gap"></div>
+                          <% end %>
+                        </div>
+                      </div>
+                      <% entry = @timetable_entries[teacher.id][weekday.id][ct.id].first %>
+                      <div class="sub_name">
+                        <%= formatted_timetable_cell_2(entry.last,teacher) unless entry.blank? %>
+                      </div>
+                      <div class="batch_code">
+                        <%= timetable_batch (entry.last) unless entry.blank? %>
+                      </div>
+                      <a class="themed_text add_sym">+</a>
+                    <% else %>
+                      <% entry = @timetable_entries[teacher.id][weekday.id][ct.id].first %>
+                      <div class="sub_name">
+                        <%= formatted_timetable_cell_2(entry.last,teacher) unless entry.blank? %>
+                      </div>
+                      <div class="batch_code">
+                        <%= timetable_batch (entry.last) unless entry.blank? %>
+                      </div>
+                    <% end %>
+                  </td>
+                <% end %>
+              <% end %>
+            </tr>
+          <% end %>
+        <% end %>
+      </table>
+    </div>
+  </div>
+<% else %>
+  <div id="timetable-container">
+    <%= t('no_entries_found') %>
+  </div>
+<% end %>

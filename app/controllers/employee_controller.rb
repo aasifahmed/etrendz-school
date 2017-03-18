@@ -1855,7 +1855,7 @@ class EmployeeController < ApplicationController
 
     def employee_params
       if params[:employee]
-        params.require(:employee).permit(:email, :employee_category_id, :employee_number, :first_name, :middle_name, :last_name, :gender, :employee_position_id, :employee_department_id, :employee_category_id, :employee_grade_id,  :nationality_id,:joining_date, :date_of_birth, :job_title, :qualification, :experience_detail, :experience_year, :experience_month, :marital_status, :children_count, :father_name, :mother_name, :husband_name, :blood_group, :photo)
+        params.require(:employee).permit(:total_time, :email, :employee_category_id, :employee_number, :first_name, :middle_name, :last_name, :gender, :employee_position_id, :employee_department_id, :employee_category_id, :employee_grade_id,  :nationality_id,:joining_date, :date_of_birth, :job_title, :qualification, :experience_detail, :experience_year, :experience_month, :marital_status, :children_count, :father_name, :mother_name, :husband_name, :blood_group, :photo)
       else
         {}
       end

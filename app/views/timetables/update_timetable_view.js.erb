@@ -1,0 +1,5 @@
+<% if @timetable.empty? %>
+  $("#timetable_view").html("<%= escape_javascript '' %>")
+<% else %>
+  $("#timetable_view").html("<%= escape_javascript render 'view_timetable' %>")
+<% end %>

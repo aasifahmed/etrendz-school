@@ -1,0 +1,119 @@
+<%= stylesheet_link_tag("event/index.css") %>
+<div id="content-header">
+  <%#= image_tag("manage_news/manage_news_logo.png") %>
+  <h1>
+    <%= t('event_text') %>
+  </h1>
+  <h3>
+    <%= t('event_creation') %>
+  </h3>
+  <div id="app-back-button">
+    <%#= back_button %>
+  </div>
+</div><hr>
+<div id="page-yield" style="padding-left: 20px;">
+  <%= flash[:notice] %>
+  <%= form_for :events do |f| %>
+    <%= error_messages_for 'events' %>
+    <div class="row">
+    <div class="label-field-pair">
+    <div class="col-md-2">
+      <label for="start-date">
+        <%= t('start_date') %>
+      </label>
+    </div>
+    <div class="col-md-3">
+      <div class="input-group">
+        <%= f.text_field 'start_date', class: "start_date form-control" %>
+          <span class="input-group-addon">
+            <i class="ace-icon fa fa-calendar bigger-110"></i>
+          </span>
+      </div>
+      </div>
+    </div>
+    </div><br>
+    <div class="row">
+    <div class="label-field-pair">
+    <div class="col-md-2">
+      <label for="end-date">
+        <%= t('end_date') %>
+      </label>
+    </div>
+    <div class="col-md-3">
+      <div class="input-group">
+        <%= f.text_field 'end_date', class: "end_date form-control" %>
+          <span class="input-group-addon">
+            <i class="ace-icon fa fa-calendar bigger-110"></i>
+          </span>
+      </div>
+    </div>
+    </div>
+    </div><br>
+    <div class="row">
+    <div class="label-field-pair">
+    <div class="col-md-2">
+      <label for="title">
+        <%= t('title') %>
+      </label>
+    </div>
+    <div class="col-md-4">
+      <div class="text-input-bg">
+        <%= f.text_field :title %>
+      </div>
+    </div>
+    </div>
+    </div><br>
+    <div class="row">
+    <div class="col-md-2">
+    <div class="label-field-pair">
+      <label for="description">
+        <%= t('description') %>
+      </label>
+    </div>
+    </div>
+    <div class="col-md-5">
+    <%= f.text_area "description" %>
+    </div>
+    </div><br>
+    <div class="row">
+    <div class="label-field-pair">
+    <div class="col-md-2">
+      <label for="is-holiday">
+        <%= t('is_holiday') %>
+        ?
+      </label>
+      </div>
+      <div class="col-md-2">
+      <%= f.check_box :is_holiday %>
+      </div>
+      </div>
+    </div><br>
+    <div class="row">
+    <div class="label-field-pair">
+    <div class="col-md-2">
+      <label for="end-date">
+        <%= t('common_event') %>
+      </label>
+    </div>
+    <div class="col-md-2">
+      <%= f.check_box :is_common %>
+    </div>
+    </div>
+    </div>
+    <%= f.submit " #{t('create_event')}", class: "btn btn-purple" %>
+  <% end %>
+</div>
+<script type="text/javascript">
+  $( ".start_date" ).datepicker({
+    dateFormat: 'yy-mm-dd',
+    showOtherMonths: true,
+    selectOtherMonths: false
+    //isRTL:true,
+  });
+  $( ".end_date" ).datepicker({
+    dateFormat: 'yy-mm-dd',
+    showOtherMonths: true,
+    selectOtherMonths: false
+    //isRTL:true,
+  });
+</script>

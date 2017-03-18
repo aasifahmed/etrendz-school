@@ -1375,6 +1375,7 @@ authorization do
       :upcoming_exams ]
     has_permission_on [:attendances],
       :to => [
+      :quick_attendance,
       :index,
       :show,
       :new,

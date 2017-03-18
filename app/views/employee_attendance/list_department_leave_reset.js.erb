@@ -1,0 +1,4 @@
+<% if params[:department_id].blank? %>
+  $('#department-list').html("")
+<% end %>
+$('#department-list').html("#{escape_javascript render partial: 'department_list'}")

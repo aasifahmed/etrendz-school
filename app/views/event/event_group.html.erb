@@ -1,0 +1,5 @@
+<%= flash[:notice] %>
+<%= link_to_remote "#{t('select_a_course')}", :url=>{:controller=>"event", :action=>"select_course", :id=>params[:id]} %>
+<%= link_to_remote "#{t('select_department')}", :url=>{:controller=>"event", :action=>"select_employee_department", :id=>params[:id]} %>
+<div id="select-options"></div>
+<%= link_to "#{t('done')}", :controller=>"event", :action=>"index" %>

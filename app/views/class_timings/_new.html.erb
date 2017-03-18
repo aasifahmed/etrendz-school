@@ -1,0 +1,49 @@
+<%= csrf_meta_tag %>
+<label class="head_label">
+  <%= t('add_new_class_timing_for') %>
+  <span>
+    <% if @batch.nil? %>
+      <%= t('common') %>
+    <% else %>
+      <%= @batch.full_name %>
+    <% end %>
+  </span>
+</label>
+<div id="ajax-create">
+  <%= form_for :class_timing, :url => { :action => 'create'}, :remote => true do |f| %>
+    <% batch_id = (@batch.nil? ? nil : @batch.id) %>
+    <%= f.hidden_field :batch_id, :value => batch_id %>
+    <div id="form-errors"></div>
+    <div class="label-field-pair">
+      <label for="name">
+        <%= t('name') %>
+      </label>
+      <div class="input-field">
+        <%= f.text_field :name %>
+      </div>
+    </div>
+    <div class="label-field-pair">
+      <label for="name">
+        <%= t('start_time') %>
+      </label>
+      <div class="time-select-field">
+        <%= time_select :class_timing, :start_time, {:minute_step => 5} %>
+      </div>
+    </div>
+    <div class="label-field-pair">
+      <label for="name">
+        <%= t('end_time') %>
+      </label>
+      <div class="time-select-field">
+        <%= time_select :class_timing, :end_time, {:minute_step => 5} %>
+      </div>
+    </div>
+    <div class="label-checkbox-pair">
+      <label>
+        <%= f.check_box :is_break, :checked => false %>
+        <%= t('is_a_break') %>
+      </label>
+    </div>
+    <%= f.submit " #{t('save')}", :class => 'submit-button' %>
+  <% end %>
+</div>

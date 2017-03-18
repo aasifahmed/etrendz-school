@@ -36,11 +36,15 @@ Rails.application.routes.draw do
 
   resources :timetable_entries
 
-  resources :attendances
-
   resources :attendances do
-    get "delete"
+      collection do
+        get :quick_attendance
+      end
   end
+
+  # resources :attendances do
+  #   get "delete"
+  # end
 
 
 
@@ -60,6 +64,7 @@ Rails.application.routes.draw do
     resources :attendances do
       collection do
         get :daily_register
+        get :quick_attendance
         get :subject_wise_register
         get :list_subject
       end
@@ -833,6 +838,7 @@ Rails.application.routes.draw do
         get :list_batches
       end
       member do
+        # post :previous_data_create
         get :profile
         get :profile_pdf
         get :reports

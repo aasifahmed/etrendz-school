@@ -1,0 +1,60 @@
+<%= javascript_include_tag :application %>
+<%= csrf_meta_tag %>
+<div id="content-header">
+  <%#= image_tag("show_timetable.png") %>
+  <h1>
+    <%= t('timetable_text') %>
+  </h1>
+  <h3>
+    <%= t('select_batch_to_view') %>
+  </h3>
+  <div id="app-back-button">
+    <%#= back_button %>
+  </div>
+</div><hr>
+<div id="page-yield" style="padding-left: 20px;">
+  <% unless flash[:notice].nil? %>
+    <p class="flash-msg">
+      <%= flash[:notice] %>
+    </p>
+  <% end %>
+  <% if @timetables.blank? %>
+    No timetables found
+  <% else %>
+    <% current = Timetable.where("timetables.start_date <= ? AND timetables.end_date >= ?",@local_tzone_time.to_date, @local_tzone_time.to_date).first %>
+    <%= form_for :timetable_entry do |s| %>
+      <div class="label-field-pair">
+        <label for="<%= :timetable_entry_course_id %>">
+          <%= t('select_tte') %>
+        </label>
+        <div class="text-input-bg">
+          <%= select :timetable_entry, :timetable_id, @timetables.map {|c| ["#{c.start_date.strftime("%d %b %Y")} - #{c.end_date.strftime("%d %b %Y")}", c.id]}, { selected: current.present? ? current.id : nil}, {onChange: 'show_timetable()' } %>
+        </div>
+      </div>
+      <div class="label-field-pair">
+        <label for="<%= :timetable_entry_course_id %>">
+          <%= t('select_a_batch') %>
+        </label>
+        <%= image_tag("loader.gif", align: "absmiddle", border: 0, id: "loader", style: "display: none;" ) %>
+        <div class="text-input-bg">
+          <%= select :timetable_entry, :course_id, @courses.map {|c| [c.full_name, c.id]}, { selected: @course_id, prompt: t('select_a_batch')}, { onChange: 'show_timetable();'} %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <div class="extender"></div>
+  <div id="timetable_view"></div>
+</div>
+<script>
+  
+  function show_timetable(){
+  
+    var course_id = document.getElementById('timetable_entry_course_id').value;
+    var timetable_id = document.getElementById('timetable_entry_timetable_id').value;
+    $.ajax({ type: "GET",
+    url: "update_timetable_view",
+    data: { course_id: course_id, timetable_id: timetable_id} , 
+    });
+    }
+
+</script>

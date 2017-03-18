@@ -1,0 +1,53 @@
+<div id="content-header">
+  <%#= image_tag("show_timetable.png") %>
+  <h1>
+    <%= t('timetable_text') %>
+  </h1>
+  <h3>
+    <%= t('edit_text') %>
+  </h3>
+  <div id="app-back-button">
+    <%#= back_button %>
+  </div>
+</div><hr>
+<div id="page-yield" style="padding-left: 20px;">
+  <% unless flash[:notice].nil? %>
+    <p class="flash-msg">
+      <%= flash[:notice] %>
+    </p>
+  <% end %>
+  <% if @timetables.blank? %>
+    No editable timetables
+  <% else %>
+    <div id="department-list">
+      <table class="table table-striped">
+      <tr>
+      <th>
+          <div class="department-edit">
+            <%= t('sl_no') %>
+          </div>
+      </th>
+      <th>
+          <div class="department-name">
+            <%= t('time_period') %>
+          </div>
+      </th>
+      </tr>
+        <% @timetables.each_with_index do |tt,i| %>
+      <tr>
+      <td>
+            <div class="department-edit">
+              <%= i+1 %>
+            </div>
+      </td>
+      <td>
+            <div class="department-name">
+              <%= link_to "#{I18n.l(tt.start_date, format: "%d %b %Y")}  -  #{I18n.l(tt.end_date, format: "%d %b %Y")}", controller: :timetables, action: :update_timetable, id: tt.id %>
+            </div>
+      </td>
+      </tr>
+        <% end %>
+      </table>
+    </div>
+  <% end %>
+</div>
